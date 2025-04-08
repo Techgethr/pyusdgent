@@ -13,14 +13,14 @@ export const tokensAvailable: Token[] = [
         name: "PayPal USD",
         symbol: "PYUSD",
         decimals: 6,
-        contractId: "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8",
+        contractId: "0xcac524bca292aaade2df8a05cc58f0a65b1b3bb9",
     },
     
   ];
 
 export const abiByToken = [
     {
-        contractId: "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8",
+        contractId: "0xcac524bca292aaade2df8a05cc58f0a65b1b3bb9",
         ABI: PYUSD_ABI
     },
     

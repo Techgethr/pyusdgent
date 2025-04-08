@@ -21,68 +21,7 @@ export const sendTransactionTool: ToolConfig<SendTransactionArgs> = {
           },
           value: {
             type: "string",
-            description: "The amount of FLR to send (in FLR, not Wei)",
-            optional: true,
-          },
-          data: {
-            type: "string",
-            pattern: "^0x[a-fA-F0-9]*$",
-            description: "Contract interaction data",
-            optional: true,
-          },
-          nonce: {
-            type: "number",
-            description: "Unique number identifying this transaction",
-            optional: true,
-          },
-          gasPrice: {
-            type: "string",
-            description: "Gas price in Gwei",
-            optional: true,
-          },
-          accessList: {
-            type: "array",
-            description: "EIP-2930 access list",
-            items: {
-              type: "object",
-              properties: {
-                address: {
-                  type: "string",
-                  description:
-                    "The address of the account or contract to access",
-                },
-                storageKeys: {
-                  type: "array",
-                  items: {
-                    type: "string",
-                    description: "The storage keys to access",
-                  },
-                },
-              },
-              required: ["address", "storageKeys"],
-            },
-            optional: true,
-          },
-          factoryDeps: {
-            type: "array",
-            description: "Factory dependencies (bytecodes of smart contracts)",
-            items: {
-              type: "string",
-              pattern: "^0x[a-fA-F0-9]*$",
-              description: "Contract bytecode as hex string",
-            },
-            optional: true,
-          },
-          paymaster: {
-            type: "string",
-            pattern: "^0x[a-fA-F0-9]{40}$",
-            description: "Paymaster address",
-            optional: true,
-          },
-          paymasterInput: {
-            type: "string",
-            pattern: "^0x[a-fA-F0-9]*$",
-            description: "Paymaster input",
+            description: "The amount of PYUSD to send (in PYUSD, not Wei)",
             optional: true,
           },
         },

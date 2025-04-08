@@ -1,5 +1,5 @@
 import { createPublicClient, http } from "viem";
-import { sepolia } from "viem/chains";
+import {ethChain} from "./configureChain";
 
 /**
  * Creates a new public Viem client connected to the Ethereum Sepolia.
@@ -16,7 +16,7 @@ export function createViemPublicClient() {
      *
      * In this case, we're using the Ethereum Sepolia.
      */
-    chain: sepolia,
+    chain: ethChain,
 
     /**
      * The transport to use for HTTP requests.

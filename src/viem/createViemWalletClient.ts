@@ -1,6 +1,6 @@
 import { createWalletClient, http, publicActions } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
-import { sepolia } from "viem/chains";
+import {ethChain} from "./configureChain";
 
 /**
  * Creates a new Viem wallet client connected to the Ethereum Sepolia.
@@ -26,7 +26,7 @@ export function createViemWalletClient() {
   // Create the wallet client
   return createWalletClient({
     account,
-    chain: sepolia,
+    chain: ethChain,
     transport: http(),
   }).extend(publicActions);
 }

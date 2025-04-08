@@ -21,7 +21,7 @@ export interface SendTransactionArgs {
   /**
    * The amount of ETH to send (in ETH, not Wei)
    */
-  value?: string;
+  value: string;
   /**
    * Contract interaction data
    */

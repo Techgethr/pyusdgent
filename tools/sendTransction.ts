@@ -3,6 +3,7 @@ import { parseEther } from "viem"; // Function to convert ETH to Wei
 import { createViemWalletClient } from "../src/viem/createViemWalletClient.js"; // Function to create a Viem wallet client
 import type { ToolConfig } from "./allTools.js"; // Type definition for tool configurations
 import type { SendTransactionArgs } from "../interface/index.js"; // Type definition for send transaction arguments
+import {PYUSD_ABI} from "../src/constants/abi/pyusd";
 
 // Configuration for the send transaction tool
 export const sendTransactionTool: ToolConfig<SendTransactionArgs> = {
@@ -22,10 +23,9 @@ export const sendTransactionTool: ToolConfig<SendTransactionArgs> = {
           value: {
             type: "string",
             description: "The amount of PYUSD to send (in PYUSD, not Wei)",
-            optional: true,
           },
         },
-        required: ["to"],
+        required: ["to","value"],
       },
     },
   },
@@ -41,32 +41,24 @@ export const sendTransactionTool: ToolConfig<SendTransactionArgs> = {
 async function sendTransaction({
   to,
   value,
-  data,
-  nonce,
-  gasPrice,
-  accessList,
-  factoryDeps,
-  paymaster,
-  paymasterInput,
 }: SendTransactionArgs) {
   try {
     // Creating a Viem wallet client instance
     const walletClient = createViemWalletClient();
 
-    // Sending the transaction with the provided parameters
-    const hash = await walletClient.sendTransaction({
-      to,
-      value: value ? parseEther(value) : undefined,
-      data,
-      nonce: nonce || undefined,
-      gasPrice: gasPrice ? parseEther(gasPrice) : undefined,
-      accessList: accessList || undefined,
-      customData: {
-        factoryDeps: factoryDeps || undefined,
-        paymaster: paymaster || undefined,
-        paymasterInput: paymasterInput || undefined,
-      },
+    const amountWithDecimals = Number(value) * 10**6;
+
+    const { request } = await walletClient.simulateContract({
+      account: walletClient.account,
+      address: '0xcac524bca292aaade2df8a05cc58f0a65b1b3bb9',
+      abi: PYUSD_ABI,
+      functionName: 'transfer',
+      //value: BigInt(amountWithDecimals),
+      args: [to, BigInt(amountWithDecimals)]
     });
+    const hash = await walletClient.writeContract(request);
+
+    
 
     // Returning the transaction hash and a success message
     return {
